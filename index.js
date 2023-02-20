@@ -3,8 +3,9 @@ const app = express()
 const port = 3000
 const nodemailer = require('nodemailer')
 require('dotenv').config()
+const cors = require('cors')
 
-
+app.use(cors())
 app.use(express.json());
 
 let transporter = nodemailer.createTransport({
