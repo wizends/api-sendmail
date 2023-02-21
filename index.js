@@ -18,11 +18,13 @@ let transporter = nodemailer.createTransport({
     },
   });
 
-console.log(process.env.MAIL)
-
+app.get('/', (req,res) => {
+  res.send('hola')
+})
 
 app.post('/sendmail', async (req, res) => {
-    const { name, mail, msg} = req.body
+    const { name, mail, msg } = req.body
+    console.log(await req.body)
     try {
         let info = await transporter.sendMail({
             from: 'Web Portafolio', // sender address
@@ -40,15 +42,11 @@ app.post('/sendmail', async (req, res) => {
             </ul>`, // html body
           });
           console.log("Message sent: %s", info.messageId);
-          console.log(res.statusCode)
+    
         
     } catch (error) {
-        console.error(res.statusCode)
+        console.error(error)
     }
-    res.send({
-        code:res.statusCode,
-        message: res.statusMessage
-      })
 })
 
 app.listen(port, () => {
